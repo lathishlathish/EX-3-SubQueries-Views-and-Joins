@@ -1,4 +1,4 @@
-# EX 3 SubQueries, Views and Joins 
+# EX 3:SubQueries, Views and Joins 
 
 
 ## Create employee Table
@@ -67,47 +67,64 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 
 ### Q1) List the name of the employees whose salary is greater than that of employee with empno 7566.
 
-
 ### QUERY:
-
-
+```
+CREATE VIEW details AS SELECT ENAME FROM EMP WHERE SALARY >(select SALARY from EMP where EMPNO=7566);
+```
 ### OUTPUT:
+
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/da806fac-f8ff-4079-925b-b2c39f7653df)
+
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
 
 ### QUERY:
-
-
+```
+ CREATE VIEW minimum AS select ENAME,JOB,SALARY from EMP where SALARY =(select MIN(SALARY) from EMP);
+```
 ### OUTPUT:
+
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/cbfe52fc-cb65-4210-8e9c-f95aed3813f2)
 
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
 
 ### QUERY:
-
-
+```
+select ENAME,JOB from EMP where  DEPTNO=10 AND JOB='SALESMAN';
+```
 ### OUTPUT:
 
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/af655874-0483-4746-91e0-c166b61cfafd)
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
 
 ### QUERY:
-
-
+```
+create view empv5 as select EMPNO,ENAME,JOB from EMP where DEPTNO=10;
+```
 ### OUTPUT:
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/5c9c4d7d-114a-4346-9008-a60d56f1ea05)
+
 
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
 
 ### QUERY:
-
-
+```
+create view empv30 AS select EMPNO,ENAME,SALARY from EMP where DEPTNO=30;
+```
 ### OUTPUT:
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/398ac256-7d39-4870-baf1-2261faa9078a)
 
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
 
 ### QUERY:
+```
+update EMP set SALARY=SALARY*1.1 WHERE JOB='clerk';
 
-
+create view empv5 as select EMPNO,ENAME,SALARY,JOB from EMP;
+```
 ### OUTPUT:
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/d5db59b2-081b-4714-932e-4efdea61d2f9)
 
 ## Create a Customer1 Table
 ```sql
@@ -140,28 +157,45 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
 
 ### QUERY:
-
-
+```
+select s.name,c.cust_name,s.city from salesman1 as s ,customer1 as c where s.city=c.city;
+```
 ### OUTPUT:
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/7941b57f-c599-4736-b0ef-8b8548782b66)
 
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
 
-
 ### QUERY:
-
+```
+select s.name,c.cust_name,c.city,s.commission from salesman1 as s inner join customer1 as c on s.city=c.city where s.commission>0.13;
+```
 
 ### OUTPUT:
+
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/b650fbc0-0c7b-4cd1-a501-474bae2dd4ea)
 
 ### Q9) Perform Natural join on both tables
-
 ### QUERY:
-
-
+```
+ select s.name,c.cust_name,c.city,s.commission from salesman1 as s natural join customer1 as c where s.commission>0.13;
+```
 ### OUTPUT:
+
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/cbd3d709-1846-4226-9302-fcceccbbc9d2)
+
 
 ### Q10) Perform Left and right join on both tables
-
 ### QUERY:
+```
+select s.name,c.cust_name,c.city,s.commission from salesman1 as s left join customer1 as c on s.salesman_id=c.salesman_id where s.commission>0.13;
 
-
+select s.name,c.cust_name,c.city,s.commission from salesman1 as s right join customer1 as c on s.salesman_id=c.salesman_id where s.commission>0.13;
+```
 ### OUTPUT:
+
+![image](https://github.com/Brindha77/EX-3-SubQueries-Views-and-Joins/assets/118889143/c0fd5dee-4513-4042-8a59-c96ede0bbbd8)
+
+
+
+### RESULT:
+Hence successfully created a manager database and execute DML queries using SQL.
